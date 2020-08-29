@@ -1,18 +1,3 @@
-From c04cb81a1e0820249ec3ca3dafdf191c1a816f5d Mon Sep 17 00:00:00 2001
-From: Mohd Faraz <androiabledroid@gmail.com>
-Date: Wed, 29 Apr 2020 06:51:32 +0530
-Subject: [PATCH] cleanup relinks
-
- * Added ueventd & watchdogd relinks
-
- * no more needed toybox's relinks to sbin all binaries and libs will be available from sbin
-
-Change-Id: Id0443e162ac96aba856fc418e45132234c758b7b
-Signed-off-by: Mohd Faraz <androiabledroid@gmail.com>
----
-
-diff --git a/bootable/recovery/prebuilt/Android.mk b/bootable/recovery/prebuilt/Android.mk
-index c1f1fbe..46ce5d1 100755
 --- a/bootable/recovery/prebuilt/Android.mk
 +++ b/bootable/recovery/prebuilt/Android.mk
 @@ -17,14 +17,16 @@
@@ -43,16 +28,18 @@ index c1f1fbe..46ce5d1 100755
          else
              RELINK_SOURCE_FILES += $(TARGET_OUT_EXECUTABLES)/unzip
          endif
-@@ -63,7 +65,7 @@
-     ifeq ($(shell test $(PLATFORM_SDK_VERSION) -le 29; echo $$?),0)
+@@ -63,8 +65,8 @@
+     ifeq ($(shell test $(PLATFORM_SDK_VERSION) -le 28; echo $$?),0)
          RELINK_SOURCE_FILES += $(TARGET_OUT_EXECUTABLES)/adbd
      else
 -        RELINK_SOURCE_FILES += $(TARGET_RECOVERY_ROOT_OUT)/system/bin/adbd
+-        RELINK_SOURCE_FILES += $(TARGET_RECOVERY_ROOT_OUT)/system/bin/fastbootd
 +        RELINK_SOURCE_FILES += $(TARGET_RECOVERY_ROOT_OUT)/sbin/adbd
++        RELINK_SOURCE_FILES += $(TARGET_RECOVERY_ROOT_OUT)/sbin/fastbootd
      endif
  endif
  RELINK_SOURCE_FILES += $(TARGET_OUT_EXECUTABLES)/e2fsck
-@@ -85,37 +87,37 @@
+@@ -86,37 +88,37 @@
  endif
  ifeq ($(TARGET_ARCH), arm64)
      ifeq ($(shell test $(PLATFORM_SDK_VERSION) -ge 29; echo $$?),0)
@@ -115,7 +102,7 @@ index c1f1fbe..46ce5d1 100755
      RELINK_SOURCE_FILES += $(TARGET_ROOT_OUT)/../system/lib64/libinit.so
      RELINK_SOURCE_FILES += $(TARGET_ROOT_OUT)/../system/lib64/libdl_android.so
      RELINK_SOURCE_FILES += $(TARGET_ROOT_OUT)/../system/lib64/libprotobuf-cpp-lite.so
-@@ -128,7 +130,7 @@
+@@ -129,7 +131,7 @@
      RELINK_SOURCE_FILES += $(TARGET_ROOT_OUT)/../system/bin/servicemanager
      RELINK_SOURCE_FILES += $(TARGET_ROOT_OUT)/../system/bin/vold_prepare_subdirs
      RELINK_SOURCE_FILES += $(TARGET_ROOT_OUT)/../vendor/bin/vndservicemanager
@@ -124,7 +111,7 @@ index c1f1fbe..46ce5d1 100755
  else
      RELINK_SOURCE_FILES += $(TARGET_OUT_SHARED_LIBRARIES)/libc.so
      RELINK_SOURCE_FILES += $(TARGET_OUT_SHARED_LIBRARIES)/libdl.so
-@@ -201,7 +203,7 @@
+@@ -202,7 +204,7 @@
      ifeq ($(shell test $(PLATFORM_SDK_VERSION) -ge 23; echo $$?),0)
          # Android M libraries
          ifeq ($(shell test $(PLATFORM_SDK_VERSION) -ge 29; echo $$?),0)
@@ -133,7 +120,7 @@ index c1f1fbe..46ce5d1 100755
          else
              RELINK_SOURCE_FILES += $(TARGET_OUT_SHARED_LIBRARIES)/libbacktrace.so
          endif
-@@ -219,7 +221,7 @@
+@@ -220,7 +222,7 @@
      RELINK_SOURCE_FILES += $(TARGET_OUT_SHARED_LIBRARIES)/libmincrypttwrp.so
  endif
  ifeq ($(shell test $(PLATFORM_SDK_VERSION) -ge 28; echo $$?),0)
@@ -142,7 +129,7 @@ index c1f1fbe..46ce5d1 100755
  else
      RELINK_SOURCE_FILES += $(TARGET_RECOVERY_ROOT_OUT)/sbin/toolbox
  endif
-@@ -356,7 +358,7 @@
+@@ -357,7 +359,7 @@
      endif
  endif
  ifeq ($(AB_OTA_UPDATER), true)
@@ -151,7 +138,7 @@ index c1f1fbe..46ce5d1 100755
      RELINK_SOURCE_FILES += $(TARGET_OUT_SHARED_LIBRARIES)/android.hardware.boot@1.0.so
      RELINK_SOURCE_FILES += $(TARGET_OUT_EXECUTABLES)/bootctl
      ifneq ($(TW_INCLUDE_CRYPTO), true)
-@@ -510,32 +512,14 @@
+@@ -511,32 +513,14 @@
      RELINK_SOURCE_FILES += $(TARGET_OUT_SHARED_LIBRARIES)/libext2_misc.so
  endif
  
@@ -186,7 +173,7 @@ index c1f1fbe..46ce5d1 100755
  include $(BUILD_PHONY_PACKAGE)
  
  #relink init
-@@ -544,10 +528,8 @@
+@@ -545,10 +529,8 @@
  LOCAL_MODULE_TAGS := optional
  LOCAL_MODULE_CLASS := RECOVERY_EXECUTABLES
  LOCAL_MODULE_PATH := $(TARGET_RECOVERY_ROOT_OUT)
@@ -198,8 +185,6 @@ index c1f1fbe..46ce5d1 100755
      ln -sf /init $(TARGET_RECOVERY_ROOT_OUT)/system/bin/init && \
      mkdir -p $(TARGET_RECOVERY_ROOT_OUT)/system/etc/selinux/ && \
      cp $(TARGET_ROOT_OUT)/../system/etc/selinux/plat_service_contexts $(TARGET_RECOVERY_ROOT_OUT)/system/etc/selinux/plat_service_contexts && \
-diff --git a/bootable/recovery/prebuilt/relink.sh b/bootable/recovery/prebuilt/relink.sh
-index 783e052..57b998e 100755
 --- a/bootable/recovery/prebuilt/relink.sh
 +++ b/bootable/recovery/prebuilt/relink.sh
 @@ -16,9 +16,11 @@

@@ -19,7 +19,7 @@ cp -v /var/tmp/buildtwrp/extra.xml .repo/local_manifests/extra.xml
 repo sync -c -j"$(nproc --all)" --force-sync --no-clone-bundle --no-tags
 
 # apply fix-relinks patch
-patch -p1 < /var/tmp/buildtwrp/cleanup-relinks.patch
+#patch -p1 < /var/tmp/buildtwrp/cleanup-relinks.patch
 
 # run actual build
 export ALLOW_MISSING_DEPENDENCIES=true
