@@ -28,5 +28,5 @@ lunch omni_c2s-eng
 mka -j$(nproc --all) recoveryimage
 
 # copy image to output dir
-cp -v out/target/product/d2s/recovery.img /var/tmp/buildtwrp/
+cp -v out/target/product/c2s/recovery.img /var/tmp/buildtwrp/
 chmod 777 /var/tmp/buildtwrp/recovery.img
