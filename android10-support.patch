@@ -173,7 +173,7 @@
  include $(BUILD_PHONY_PACKAGE)
  
  #relink init
-@@ -545,10 +529,8 @@
+@@ -545,16 +529,14 @@
  LOCAL_MODULE_TAGS := optional
  LOCAL_MODULE_CLASS := RECOVERY_EXECUTABLES
  LOCAL_MODULE_PATH := $(TARGET_RECOVERY_ROOT_OUT)
@@ -185,15 +185,15 @@
      ln -sf /init $(TARGET_RECOVERY_ROOT_OUT)/system/bin/init && \
      mkdir -p $(TARGET_RECOVERY_ROOT_OUT)/system/etc/selinux/ && \
      cp $(TARGET_ROOT_OUT)/../system/etc/selinux/plat_service_contexts $(TARGET_RECOVERY_ROOT_OUT)/system/etc/selinux/plat_service_contexts && \
-@@ -552,7 +536,7 @@
-     ln -sf /init $(TARGET_RECOVERY_ROOT_OUT)/system/bin/init && \
-     mkdir -p $(TARGET_RECOVERY_ROOT_OUT)/system/etc/selinux/ && \
-     cp $(TARGET_ROOT_OUT)/../system/etc/selinux/plat_service_contexts $(TARGET_RECOVERY_ROOT_OUT)/system/etc/selinux/plat_service_contexts && \
 -    cp $(TARGET_ROOT_OUT)/../system/etc/selinux/plat_hwservice_contexts $(TARGET_RECOVERY_ROOT_OUT)/system/etc/selinux/plat_hwservice_contexts && \
-+#    cp $(TARGET_ROOT_OUT)/../system/etc/selinux/plat_hwservice_contexts $(TARGET_RECOVERY_ROOT_OUT)/system/etc/selinux/plat_hwservice_contexts && \
-     cp $(TARGET_ROOT_OUT)/../vendor/etc/selinux/vndservice_contexts $(TARGET_RECOVERY_ROOT_OUT)/system/etc/selinux/vndservice_contexts && \
-     cp $(TARGET_ROOT_OUT)/../vendor/etc/selinux/vendor_hwservice_contexts $(TARGET_RECOVERY_ROOT_OUT)/system/etc/selinux/vendor_hwservice_contexts
+-    cp $(TARGET_ROOT_OUT)/../vendor/etc/selinux/vndservice_contexts $(TARGET_RECOVERY_ROOT_OUT)/system/etc/selinux/vndservice_contexts && \
+-    cp $(TARGET_ROOT_OUT)/../vendor/etc/selinux/vendor_hwservice_contexts $(TARGET_RECOVERY_ROOT_OUT)/system/etc/selinux/vendor_hwservice_contexts
++    echo cp $(TARGET_ROOT_OUT)/../system/etc/selinux/plat_hwservice_contexts $(TARGET_RECOVERY_ROOT_OUT)/system/etc/selinux/plat_hwservice_contexts && \
++    echo cp $(TARGET_ROOT_OUT)/../vendor/etc/selinux/vndservice_contexts $(TARGET_RECOVERY_ROOT_OUT)/system/etc/selinux/vndservice_contexts && \
++    echo cp $(TARGET_ROOT_OUT)/../vendor/etc/selinux/vendor_hwservice_contexts $(TARGET_RECOVERY_ROOT_OUT)/system/etc/selinux/vendor_hwservice_contexts
  LOCAL_REQUIRED_MODULES := init_second_stage.recovery reboot.recovery plat_service_contexts plat_hardware_contexts vndservice_contexts
+ include $(BUILD_PHONY_PACKAGE)
+
 --- a/bootable/recovery/prebuilt/relink.sh
 +++ b/bootable/recovery/prebuilt/relink.sh
 @@ -16,9 +16,11 @@
