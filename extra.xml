@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+    <remove-project name="android_build" />
+	<project path="build/make" name="TWRP-10-Modified-Repos/android_build" remote="github" revision="android-10" groups="pdk" >
+        <copyfile src="core/root.mk" dest="Makefile" />
+        <linkfile src="CleanSpec.mk" dest="build/CleanSpec.mk" />
+        <linkfile src="buildspec.mk.default" dest="build/buildspec.mk.default" />
+        <linkfile src="core" dest="build/core" />
+        <linkfile src="envsetup.sh" dest="build/envsetup.sh" />
+        <linkfile src="target" dest="build/target" />
+        <linkfile src="tools" dest="build/tools" />
+    </project>
+    <remove-project name="android_build_soong" />
+    <project path="build/soong" name="TWRP-10-Modified-Repos/android_build_soong" remote="github" revision="android-10" >
+        <linkfile src="root.bp" dest="Android.bp" />
+        <linkfile src="bootstrap.bash" dest="bootstrap.bash" />
+    </project>
+	<remove-project name="android_system_core"/>
+    <project path="system/core" name="TWRP-10-Modified-Repos/android_system_core" remote="github" revision="android-10"/>
+	<remove-project name="android_vendor_omni"/>
+    <project path="vendor/omni" name="TWRP-10-Modified-Repos/android_vendor_omni" remote="github" revision="android-10"/>
+    <project name="cawilliamson/android_device_samsung_c2s_twrp" path="device/samsung/d2s" remote="github" revision="master"/>
+</manifest>
