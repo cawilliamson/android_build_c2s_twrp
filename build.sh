@@ -7,4 +7,4 @@ docker build -t chrisawcom/buildtwrp .
 mkdir -p out/
 
 # docker run
-docker run --privileged --tty --rm -v "$(pwd):/var/tmp/buildtwrp" chrisawcom/buildtwrp
+docker run --privileged --tty --rm -v "$(pwd):/var/tmp/buildtwrp" -v "$(pwd)/src:/usr/src/twrp" chrisawcom/buildtwrp
