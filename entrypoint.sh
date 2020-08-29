@@ -19,12 +19,14 @@ cp -v /var/tmp/buildtwrp/extra.xml .repo/local_manifests/extra.xml
 repo sync -c -j"$(nproc --all)" --force-sync --no-clone-bundle --no-tags
 
 # apply fix-relinks patch
-#patch -p1 < /var/tmp/buildtwrp/cleanup-relinks.patch
+if ! patch -R -p1 -s -f --dry-run < /var/tmp/buildtwrp/cleanup-relinks.patch; then
+  patch -p1 < /var/tmp/buildtwrp/cleanup-relinks.patch
+fi
 
 # run actual build
 export ALLOW_MISSING_DEPENDENCIES=true
 . build/envsetup.sh
-lunch omni_d2s-eng
+lunch omni_c2s-eng
 mka -j$(nproc --all) recoveryimage
 
 # copy image to output dir

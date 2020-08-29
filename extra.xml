@@ -19,5 +19,5 @@
     <project path="system/core" name="TWRP-10-Modified-Repos/android_system_core" remote="github" revision="android-10"/>
 	<remove-project name="android_vendor_omni"/>
     <project path="vendor/omni" name="TWRP-10-Modified-Repos/android_vendor_omni" remote="github" revision="android-10"/>
-    <project name="cawilliamson/android_device_samsung_c2s_twrp" path="device/samsung/d2s" remote="github" revision="master"/>
+    <project name="cawilliamson/android_device_samsung_c2s_twrp" path="device/samsung/c2s" remote="github" revision="master"/>
 </manifest>
