@@ -11,10 +11,10 @@ Change-Id: Id0443e162ac96aba856fc418e45132234c758b7b
 Signed-off-by: Mohd Faraz <androiabledroid@gmail.com>
 ---
 
-diff --git a/prebuilt/Android.mk b/prebuilt/Android.mk
+diff --git a/bootable/recovery/prebuilt/Android.mk b/bootable/recovery/prebuilt/Android.mk
 index c1f1fbe..46ce5d1 100755
---- a/prebuilt/Android.mk
-+++ b/prebuilt/Android.mk
+--- a/bootable/recovery/prebuilt/Android.mk
++++ b/bootable/recovery/prebuilt/Android.mk
 @@ -17,14 +17,16 @@
  RELINK_SOURCE_FILES += $(TARGET_RECOVERY_ROOT_OUT)/sbin/bu
  
@@ -198,10 +198,10 @@ index c1f1fbe..46ce5d1 100755
      ln -sf /init $(TARGET_RECOVERY_ROOT_OUT)/system/bin/init && \
      mkdir -p $(TARGET_RECOVERY_ROOT_OUT)/system/etc/selinux/ && \
      cp $(TARGET_ROOT_OUT)/../system/etc/selinux/plat_service_contexts $(TARGET_RECOVERY_ROOT_OUT)/system/etc/selinux/plat_service_contexts && \
-diff --git a/prebuilt/relink.sh b/prebuilt/relink.sh
+diff --git a/bootable/recovery/prebuilt/relink.sh b/bootable/recovery/prebuilt/relink.sh
 index 783e052..57b998e 100755
---- a/prebuilt/relink.sh
-+++ b/prebuilt/relink.sh
+--- a/bootable/recovery/prebuilt/relink.sh
++++ b/bootable/recovery/prebuilt/relink.sh
 @@ -16,9 +16,11 @@
        cp -f -p --remove-destination $src $dst
      fi
