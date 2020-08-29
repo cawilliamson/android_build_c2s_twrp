@@ -60,4 +60,4 @@ RUN chmod 777 /var/tmp
 
 RUN curl -L -o /usr/bin/repo http://commondatastorage.googleapis.com/git-repo-downloads/repo && chmod +x /usr/bin/repo
 
-ENTRYPOINT [ "bash", "/var/tmp/buildtwrp/entrypoint.sh" ]
+ENTRYPOINT [ "bash", "/var/tmp/buildtwrp/scripts/entrypoint.sh" ]
