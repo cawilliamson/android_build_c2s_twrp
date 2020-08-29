@@ -31,4 +31,4 @@ mka -j$(nproc --all) recoveryimage
 
 # copy image to output dir
 cp -v out/target/product/c2s/recovery.img /var/tmp/buildtwrp/out/
-chmod 777 /var/tmp/buildtwrp/recovery.img
+chmod 666 /var/tmp/buildtwrp/out/recovery.img
