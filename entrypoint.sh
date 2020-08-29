@@ -19,9 +19,10 @@ cp -v /var/tmp/buildtwrp/extra.xml .repo/local_manifests/extra.xml
 repo sync -c -j"$(nproc --all)" --force-sync --no-clone-bundle --no-tags
 
 # apply fix-relinks patch
-if ! patch -R -p1 -s -f --dry-run < /var/tmp/buildtwrp/android10-support.patch; then
+#if ! patch -p1 -s -f --dry-run < /var/tmp/buildtwrp/android10-support.patch; then
   patch -p1 < /var/tmp/buildtwrp/android10-support.patch
-fi
+#fi
+exit 1
 
 # run actual build
 export ALLOW_MISSING_DEPENDENCIES=true
