@@ -23,6 +23,9 @@ repo sync -c -j"$(nproc --all)" --force-sync --no-clone-bundle --no-tags
 # apply android-10 patch
 patch -p1 --forward < /var/tmp/buildtwrp/patches/android10-support.patch || true
 
+# remove any potential leftover junk
+rm -rf out/
+
 # run actual build
 export ALLOW_MISSING_DEPENDENCIES=true
 . build/envsetup.sh
